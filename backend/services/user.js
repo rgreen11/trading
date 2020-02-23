@@ -6,13 +6,10 @@ userService.postUser = (
     email,
     password,
     current_amount,
-    stocks,
-    quantity,
-    current_price
 ) => {
     const sql = `
-             INSERT INTO users(name, email, password, current_amount, stocks, quantity, current_price)
-             VALUES ($[name], $[email], $[password], $[current_amount], $[stocks], $[quantity], $[current_price])
+             INSERT INTO users(name, email, password, current_amount)
+             VALUES ($[name], $[email], $[password], $[current_amount])
              RETURNING id;
           `;
     return db.one(sql, {
@@ -20,9 +17,6 @@ userService.postUser = (
         email,
         password,
         current_amount,
-        stocks,
-        quantity,
-        current_price
     });
 };
 

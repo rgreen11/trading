@@ -7,10 +7,6 @@ userRouter.post("/newuser", (req, res) => {
         name,
         email,
         password,
-        current_amount,
-        stocks,
-        quantity,
-        current_price
     } = req.body;
 
 
@@ -19,10 +15,7 @@ userRouter.post("/newuser", (req, res) => {
             name,
             email,
             password,
-            current_amount,
-            stocks,
-            quantity,
-            current_price
+            5000,
         )
         .then(data => {
             res.status(200).json({
