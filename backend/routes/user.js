@@ -29,4 +29,87 @@ userRouter.post("/newuser", (req, res) => {
         );
 });
 
+
+userRouter.get("/login", (req, res) => {
+    const {
+        email, password
+    } = req.body;
+
+    userService
+        .userLogin(
+            email, password
+        )
+        .then(data => {
+            res.status(200).json({
+                data
+            });
+        })
+        .catch(err =>
+            res.status(400).json({
+                err
+            })
+        );
+});
+
+userRouter.put("/update", (req, res) => {
+    const { id, current_price } = req.body;
+
+    userService.updateAmount(id, current_price)
+        .then(data => {
+            res.status(200).json({
+                data
+            });
+        })
+        .catch(err =>
+            res.status(400).json({
+                err
+            })
+        );
+});
+
+
+userRouter.post("/stock", (req, res) => {
+    const {
+        user_id,
+        name,
+        quantity,
+        current_price
+    } = req.body;
+
+
+    userService
+        .postStock(
+            user_id,
+            name,
+            quantity,
+            current_price
+        )
+        .then(data => {
+            res.status(200).json({
+                data
+            });
+        })
+        .catch(err =>
+            res.status(400).json({
+                err
+            })
+        );
+});
+
+userRouter.get("/stocks", (req, res) => {
+    const { user_id } = req.body;
+
+    userService
+        .stocks(user_id)
+        .then(data => {
+            res.status(200).json({
+                data
+            });
+        })
+        .catch(err =>
+            res.status(400).json({
+                err
+            })
+        );
+});
 module.exports = userRouter 
