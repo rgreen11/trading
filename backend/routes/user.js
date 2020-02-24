@@ -10,6 +10,7 @@ userRouter.post("/newuser", (req, res) => {
     } = req.body;
 
 
+
     userService
         .postUser(
             name,
@@ -27,7 +28,25 @@ userRouter.post("/newuser", (req, res) => {
                 err
             })
         );
+
 });
+
+userRouter.get('/verify', (req, res) => {
+    const { email } = req.body;
+
+    userService.verify(email)
+        .then(data => {
+
+            res.status(200).json({
+                data
+            });
+
+        }).catch(e => {
+            res.status(400).json({
+                e
+            })
+        })
+})
 
 
 userRouter.get("/login", (req, res) => {

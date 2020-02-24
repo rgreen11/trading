@@ -7,6 +7,8 @@ userService.postUser = (
     password,
     current_amount,
 ) => {
+
+
     const sql = `
              INSERT INTO users(name, email, password, current_amount)
              VALUES ($[name], $[email], $[password], $[current_amount])
@@ -19,6 +21,17 @@ userService.postUser = (
         current_amount,
     });
 };
+
+userService.verify = (email) => {
+    const sql = `SELECT email
+    FROM users
+    WHERE email=$[email]`
+
+    return db.one(sql, {
+        email,
+    });
+}
+
 
 userService.userLogin = (email, password) => {
     const sql = `
