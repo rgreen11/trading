@@ -3,7 +3,6 @@ import axios from "axios";
 
 class Signup extends React.Component {
   state = {
-    text: "",
     email: "",
     password: "",
     id: null
@@ -17,31 +16,18 @@ class Signup extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { text, email, password } = this.state;
-    if (
-      event.type === "submit" &&
-      text !== "" &&
-      email !== "" &&
-      password !== ""
-    ) {
+    const { email, password } = this.state;
+    if (event.type === "submit" && email !== "" && password !== "") {
       axios
-        .get("http://localhost:3004/user/verify")
-        .then(_ => {
-          alert("Email exist");
+        .get(
+          `http://localhost:3004/user/login?email=${email}&password=${password}`
+        )
+        .then(data => {
+          console.log(data.data.data.id);
+          this.setState({ id: data.data.data.id });
         })
-        .catch(_ => {
-          axios
-            .post("http://localhost:3004/user/newuser", {
-              name: text,
-              email: email,
-              password: password
-            })
-            .then(data => {
-              this.setState({ id: data.data.id });
-            })
-            .catch(_ => {
-              alert("Email exist");
-            });
+        .catch(e => {
+          alert("email or password is incorrect");
         });
     }
   };

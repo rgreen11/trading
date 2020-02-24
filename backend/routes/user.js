@@ -52,8 +52,8 @@ userRouter.get('/verify', (req, res) => {
 userRouter.get("/login", (req, res) => {
     const {
         email, password
-    } = req.body;
-
+    } = req.query;
+    console.log(req.query)
     userService
         .userLogin(
             email, password
